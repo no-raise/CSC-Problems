@@ -2,7 +2,9 @@ from enum import Enum
 from typing import List, NamedTuple, Callable, Optional
 import random
 from math import sqrt
-from generic_search import dfs, node_to_path, Node
+from generic_search import dfs, node_to_path, bfs
+from generic_data_structures import Node
+
 
 class Cell(str, Enum):
     EMPTY = " "
@@ -71,6 +73,7 @@ class Maze:
 if __name__ == "__main__":
     m: Maze = Maze()
     print(m)
+    #Testing depth first search
     solution_dfs: Optional[Node[MazeLocation]] = dfs(m.start, m.goal_test, m.successors)
     if solution_dfs == None:
         print("No solution using dfs")
@@ -79,3 +82,13 @@ if __name__ == "__main__":
         m.mark(path_dfs)
         print(m)
         m.clear(path_dfs)
+
+    #Testing breadth first search
+    solution_bfs: Optional[Node[MazeLocation]] = bfs(m.start, m.goal_test, m.successors)
+    if solution_bfs == None:
+        print("No solution using bfs")
+    else:
+        path_bfs: List[MazeLocation] = node_to_path(solution_bfs)
+        m.mark(path_bfs)
+        print(m)
+        m.clear(path_bfs)
