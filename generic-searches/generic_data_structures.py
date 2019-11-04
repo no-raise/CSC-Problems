@@ -65,11 +65,15 @@ class Node(Generic[T]):
 class PriorityQueue(Generic[T]):
     def __init__(self) -> None:
         self._container: List[T] = []
+
+    @property
+    def empty(self) -> bool:
+        return not self._container
     
     def push(self, item: T):
         heappush(self._container, item)
 
-    def pop(self, item: T) -> T:
+    def pop(self) -> T:
         return heappop(self._container)
 
     def __repr__(self) -> str:

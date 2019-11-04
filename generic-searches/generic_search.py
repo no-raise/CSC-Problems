@@ -75,8 +75,32 @@ def node_to_path(node: Node[T]) -> List[T]:
         path.append(node.state)
     path.reverse()
     return path
-        
+
+def astar(initial: T, goal_test: Callable[[T], bool], 
+     successors: Callable[[T], List[T]],
+      heauristic: Callable[[T], float]) -> Optional[Node[T]]:
+        #Setting up frontier
+        frontier: PriorityQueue[Node[T]] = PriorityQueue()
+        frontier.push(Node(initial, None, 0.0, heauristic(initial)))
+        #Creating a set for explored nodes
+        explored: Dict[T] = {initial: 0.0}
+
+        while not frontier.empty:
+            current_node: Node[T] = frontier.pop()
+            current_state: T = current_node.state
+            #Check for goal
+            if goal_test(current_state):
+                return current_node
+            for child in successors(current_state):
+                # 1 because we know it is a grid and we can only move 1 block at a time
+                new_cost: float = current_node.cost + 1
+                if child not in explored or explored[child] > new_cost:
+                    explored[child] = new_cost
+                    frontier.push(Node(child, current_node, new_cost, heauristic(child)))
+        return None      
 
 
 if __name__ == "__main__":
-    print(linear_contains([1, 5, 15, 15, 15, 15, 20], 5))
+    test_array = [1, 5, 15, 15, 15, 15, 20]
+    print(linear_contains(test_array, 5))
+    print(binary_contains(test_array, 5))

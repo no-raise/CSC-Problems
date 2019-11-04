@@ -2,7 +2,7 @@ from enum import Enum
 from typing import List, NamedTuple, Callable, Optional
 import random
 from math import sqrt
-from generic_search import dfs, node_to_path, bfs
+from generic_search import dfs, node_to_path, bfs, astar
 from generic_data_structures import Node
 
 
@@ -70,7 +70,20 @@ class Maze:
         self._grid[self.start.row][self.start.column] = Cell.START
         self._grid[self.goal.row][self.goal.column] = Cell.GOAL
         
-    def euclidean_distance(self,)
+def euclidean_distance(goal: MazeLocation) -> Callable[[MazeLocation], float]:
+    def distance(current_location: MazeLocation) -> float:
+        x = current_location.column - goal.column
+        y = current_location.row - goal.row
+        return sqrt((x * x) + (y * y))
+    return distance
+
+def manhattan_distance(goal: MazeLocation) -> Callable[[MazeLocation], float]:
+    def distance(current_location: MazeLocation) -> float:
+        x = abs(current_location.column - goal.column)
+        y = abs(current_location.row - goal.row)
+        return (x + y)
+    return distance
+
 
 if __name__ == "__main__":
     m: Maze = Maze()
@@ -94,3 +107,13 @@ if __name__ == "__main__":
         m.mark(path_bfs)
         print(m)
         m.clear(path_bfs)
+
+    #Testing A* 
+    distance: Callable[[MazeLocation], float] = euclidean_distance(m.goal)
+    solution_astar_euclidean: Optional[Node[MazeLocation]] = astar(m.start, m.goal_test, m.successors, distance)
+    if solution_astar_euclidean is None:
+        print("No solution found using A*")
+    else:
+        path_astar_euclidean: List[MazeLocation] = node_to_path(solution_astar_euclidean)
+        m.mark(path_astar_euclidean)
+        print(m)
