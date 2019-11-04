@@ -69,6 +69,8 @@ class Maze:
             self._grid[ml.row][ml.column] = Cell.EMPTY
         self._grid[self.start.row][self.start.column] = Cell.START
         self._grid[self.goal.row][self.goal.column] = Cell.GOAL
+        
+    def euclidean_distance(self,)
 
 if __name__ == "__main__":
     m: Maze = Maze()

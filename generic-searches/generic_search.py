@@ -1,7 +1,7 @@
 from __future__ import annotations
 from typing import TypeVar, Iterable, Sequence, List, Callable, Set, Deque, Dict, Any, Optional
 from typing_extensions import Protocol, Generic
-from generic_data_structures import Stack, Node, Comparable, Queue
+from generic_data_structures import Stack, Node, Comparable, Queue, PriorityQueue
 
 T = TypeVar('T')
 
