@@ -1,4 +1,4 @@
-# print a table of n upto 10
+# print a table of n upto 10 recursively
 
 
 def print_table(n: int, limit: int) -> None:

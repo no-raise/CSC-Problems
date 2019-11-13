@@ -1,5 +1,7 @@
-import sys  
-sys.path.append("generic-searches/")
+from sys import path
+from os.path import dirname as dir
+path.append(dir(path[0]) + '\\generic_searches')
+
 from generic_data_structures import Stack
 
 def hanoi(begin: Stack[int], end: Stack[int], temp: Stack[int], n: int) -> None:
