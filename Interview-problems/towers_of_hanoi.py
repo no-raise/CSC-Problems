@@ -1,3 +1,5 @@
+import sys  
+sys.path.append("generic-searches/")
 from generic_data_structures import Stack
 
 def hanoi(begin: Stack[int], end: Stack[int], temp: Stack[int], n: int) -> None:
