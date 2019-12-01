@@ -19,7 +19,7 @@ class MC_state:
         self.boat: bool = boat
 
     def __str__(self) -> str:
-        return (f'On the left bank there are {self.left_m} missionaries and {self.left_c} cannibals.\nOn the right bank there are {self.right_m} missionaries and {self.right_c} cannibals.\nThe self.boat is on the {"left" if self.boat else "right"} bank.')
+        return (f'On the left bank there are {self.left_m} missionaries and {self.left_c} cannibals.\nOn the right bank there are {self.right_m} missionaries and {self.right_c} cannibals.\nThe boat is on the {"left" if self.boat else "right"} bank.')
     
     def __eq__(self, other) -> bool:
         return (self.left_m == other.left_m) and (self.left_c == other.left_c) and (self.boat == other.boat)
