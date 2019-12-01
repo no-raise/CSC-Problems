@@ -23,12 +23,14 @@ def display_solution(path: List[MC_state]) -> None:
         old_state = current_state
     
 if __name__ == "__main__":
-    start: MC_state = MC_state(MAX_NUM, MAX_NUM, True)
+    start: MC_state = MC_state(3, 3, True)
     solution: Optional[Node[MC_state]] = bfs(start, MC_state.goal_test, MC_state.successors)
     if solution is None:
         print("No solution found.")
     else:
         path = node_to_path(solution)
         display_solution(path)
+
+    
 
         

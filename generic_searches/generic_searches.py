@@ -54,6 +54,7 @@ def bfs(initial: T, goal_test: Callable[[T], bool],
         frontier.push(Node(initial, None))
         #Creating a set for explored nodes
         explored: Set[T] = {initial}
+        
 
         while not frontier.empty:
             current_node: Node[T] = frontier.pop()
@@ -64,10 +65,10 @@ def bfs(initial: T, goal_test: Callable[[T], bool],
             for child in successors(current_state):
                 if child in explored:
                     continue
-                explored.add(child)
                 frontier.push(Node(child, current_node))
+                explored.add(child)
         return None      
-            
+    
 def node_to_path(node: Node[T]) -> List[T]:
     path: List[T] = [node.state]
     while node.parent is not None:
@@ -99,8 +100,3 @@ def astar(initial: T, goal_test: Callable[[T], bool],
                     frontier.push(Node(child, current_node, new_cost, heauristic(child)))
         return None      
 
-
-if __name__ == "__main__":
-    test_array = [1, 5, 15, 15, 15, 15, 20]
-    print(linear_contains(test_array, 5))
-    print(binary_contains(test_array, 5))

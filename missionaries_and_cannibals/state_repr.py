@@ -19,7 +19,13 @@ class MC_state:
         self.boat: bool = boat
 
     def __str__(self) -> str:
-        return (f'On the west bank there are {self.left_m} missionaries and {self.left_c} cannibals.\nOn the east bank there are {self.right_m} missionaries and {self.right_c} cannibals.\nThe self.boat is on the {"left" if self.boat else "right"} bank.')
+        return (f'On the left bank there are {self.left_m} missionaries and {self.left_c} cannibals.\nOn the right bank there are {self.right_m} missionaries and {self.right_c} cannibals.\nThe self.boat is on the {"left" if self.boat else "right"} bank.')
+    
+    def __eq__(self, other) -> bool:
+        return (self.left_m == other.left_m) and (self.left_c == other.left_c) and (self.boat == other.boat)
+    
+    def __hash__(self):
+        return hash(str(self))
 
     def goal_test(self) -> bool:
         return self.islegal and self.right_m == MAX_NUM and self.right_c == MAX_NUM
@@ -35,18 +41,26 @@ class MC_state:
     def successors(self) -> List[MC_state]:
         result: List[MC_state] = []
         if self.boat:
+            if self.left_m > 1:
+                result.append(MC_state(self.left_m - 2, self.left_c, not self.boat))
             if self.left_m > 0:
                 result.append(MC_state(self.left_m - 1, self.left_c, not self.boat))
+            if self.left_c > 1:
+                result.append(MC_state(self.left_m, self.left_c - 2, not self.boat))
             if self.left_c > 0:
                 result.append(MC_state(self.left_m, self.left_c - 1, not self.boat))
-            if self.left_c > 0 and self.left_m > 0:
+            if (self.left_c > 0) and (self.left_m > 0):
                 result.append(MC_state(self.left_m - 1, self.left_c - 1, not self.boat))    
         else:
+            if self.right_m > 1:
+                result.append(MC_state(self.left_m + 2, self.left_c, not self.boat))
             if self.right_m > 0:
                 result.append(MC_state(self.left_m + 1, self.left_c, not self.boat))
+            if self.right_c > 1:
+                result.append(MC_state(self.left_m, self.left_c + 2, not self.boat))
             if self.right_c > 0:
                 result.append(MC_state(self.left_m, self.left_c + 1, not self.boat))
-            if self.right_m > 0 and self.right_c > 0:
+            if (self.right_m > 0) and (self.right_c > 0):
                 result.append(MC_state(self.left_m + 1, self.left_c + 1, not self.boat))
         return [x for x in result if x.islegal]
         
