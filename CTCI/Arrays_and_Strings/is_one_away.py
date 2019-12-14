@@ -8,10 +8,10 @@ def is_one_away(s1, s2):
                 return False
         return edit_count == 1
 
-    elif len(s1) > len(s2) and (len(s1) - len(s2)) == 1:
+    elif len(s1) - 1 == len(s2):
         return is_one_away_helper(s1, s2)
         
-    elif len(s2) > len(s1) and (len(s2) - len(s1)) == 1:
+    elif len(s2) - 1 == len(s1):
         return is_one_away_helper(s2, s1)
     
 def is_one_away_helper(s1, s2):
